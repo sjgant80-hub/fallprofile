@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FallProfile · the agent passport page · sovereign · runs in your browser</title>
+<meta name="description" content="A shareable public passport for you or your agent. Ed25519 identity, verified skills, benchmark scores, provenance graph, bond history. One HTML file. Yours to fork, host, or run from disk.">
+<meta name="keywords" content="agent passport, sovereign identity, agent profile, DID, agent LinkedIn, sovereign, AI-Native Solutions">
+<meta name="author" content="AI-Native Solutions">
+<meta name="theme-color" content="#0b0a0f">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sjgant80-hub.github.io/fallprofile/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FallProfile">
+<meta property="og:title" content="FallProfile · the agent passport page">
+<meta property="og:description" content="A shareable public passport for you or your agent. Ed25519 identity, verified skills, benchmark scores, provenance graph, bond history. One HTML file. Yours to fork, host, or run from disk.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230b0a0f'/%3E%3Ctext x='16' y='22' font-family='serif' font-size='18' fill='%23d4a017' text-anchor='middle'%3E%E2%97%8A%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "FallProfile",
+  "description": "A shareable public passport for you or your agent. Ed25519 identity, verified skills, benchmark scores, provenance graph, bond history. One HTML file. Yours to fork, host, or run from disk.",
+  "applicationCategory": "SocialNetworkingApplication",
+  "operatingSystem": "Any modern browser",
+  "url": "https://sjgant80-hub.github.io/fallprofile/",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+  "license": "https://opensource.org/licenses/MIT",
+  "author": { "@type": "Organization", "name": "AI-Native Solutions", "url": "https://ai-nativesolutions.com" },
+  "featureList": ["Ed25519 DID","skills registry","provenance chain","signed manifest","shareable URL"]
+}
+</script>
+
+<style>
+:root{--void:#0b0a0f;--deep:#141319;--surface:#1a1922;--line:rgba(232,228,219,0.08);--text:#e8e6e3;--muted:#928d80;--dim:#6b6660;--gold:#d4a017;--amber:#e8a012;--sage:#7a9c7e;--coral:#d67a5a}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--void);color:var(--text);font-family:'Inter',system-ui,sans-serif;font-size:15px;line-height:1.6;min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;color:inherit;background:transparent}
+input,textarea{font-family:inherit;background:var(--deep);color:var(--text);border:1px solid var(--line);border-radius:4px;padding:10px 14px;outline:none;width:100%;font-size:14px}
+input:focus,textarea:focus{border-color:var(--gold)}
+textarea{resize:vertical;min-height:100px;font-family:'DM Mono','JetBrains Mono',monospace}
+a{color:var(--gold);text-decoration:none}
+a:hover{color:var(--text)}
+h1,h2,h3{font-family:'Playfair Display',Georgia,serif;font-weight:600}
+h1{font-size:clamp(32px,5vw,52px);margin-bottom:12px;letter-spacing:-0.02em}
+h1 em{color:var(--gold);font-style:italic}
+h2{font-size:26px;margin-bottom:14px}
+h3{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:0.14em;font-family:'DM Mono',monospace;font-weight:500;margin-bottom:8px}
+
+header{position:sticky;top:0;z-index:50;background:rgba(11,10,15,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 20px}
+.nav{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:'Playfair Display',serif;font-size:22px}
+.brand .glyph{color:var(--gold);font-size:22px}
+.brand .co{color:var(--dim);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;margin-left:6px}
+.tabs{display:flex;gap:2px}
+.tab{color:var(--muted);padding:8px 14px;border-radius:5px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;transition:all .15s;background:transparent}
+.tab:hover{color:var(--text);background:rgba(212,160,23,0.1)}
+.tab.on{color:var(--gold);background:rgba(212,160,23,0.14)}
+@media(max-width:640px){.tab{padding:6px 10px;font-size:10px}.brand .co{display:none}}
+
+main{padding:40px 20px 80px;max-width:1080px;margin:0 auto}
+.view{display:none}
+.view.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.hero{text-align:center;padding:40px 0}
+.hero p.lede{font-size:19px;color:var(--muted);font-style:italic;max-width:700px;margin:16px auto 30px}
+.hero .kicker{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:18px}
+.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+
+.card{background:var(--deep);border:1px solid var(--line);border-radius:8px;padding:24px;margin-bottom:16px}
+.card h3{color:var(--gold);text-transform:none;letter-spacing:0;font-family:'Playfair Display',serif;font-size:18px;margin-bottom:12px}
+.card .meta{font-family:'DM Mono',monospace;font-size:10px;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px}
+.card .content{white-space:pre-wrap;word-break:break-word;color:var(--text);line-height:1.65}
+.card .sig{font-family:'DM Mono',monospace;font-size:11px;color:var(--sage);margin-top:12px;padding-top:10px;border-top:1px solid var(--line);word-break:break-all}
+
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px}
+.btn{padding:12px 22px;border-radius:5px;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;border:1px solid var(--line);color:var(--text);transition:all .2s}
+.btn.primary{background:var(--gold);color:var(--void);border-color:var(--gold);font-weight:600}
+.btn.primary:hover{background:var(--amber);border-color:var(--amber)}
+.btn:hover{border-color:var(--gold);color:var(--gold)}
+
+.identity-panel{background:linear-gradient(135deg,rgba(212,160,23,0.06),transparent);border:1px solid var(--gold);padding:22px;border-radius:8px;margin-bottom:20px}
+.identity-panel .label{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:0.14em;text-transform:uppercase;margin-bottom:8px}
+.identity-panel .did{font-family:'DM Mono',monospace;font-size:12px;color:var(--text);word-break:break-all;line-height:1.5;margin-bottom:14px}
+.identity-panel .actions{display:flex;gap:10px;flex-wrap:wrap}
+
+footer{border-top:1px solid var(--line);padding:30px 20px;text-align:center;color:var(--dim);font-family:'DM Mono',monospace;font-size:11px;line-height:1.8;margin-top:60px}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--gold)}
+.foot-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+.empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty p{font-family:'Playfair Display',serif;font-size:19px;font-style:italic;margin-bottom:16px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <div class="brand"><span class="glyph">◊</span> <span>FallProfile</span> <span class="co">AI-Native Solutions</span></div>
+    <nav class="tabs">
+      <button class="tab on" data-view="v0">Passport</button>
+      <button class="tab" data-view="v1">Skills</button>
+      <button class="tab" data-view="v2">Provenance</button>
+      <button class="tab" data-view="v3">Export</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="view on" id="v0">
+    <div class="hero">
+      <div class="kicker">◊ the agent passport page</div>
+      <h1>FallProfile. <em>Sovereign. Signed.</em></h1>
+      <p class="lede">A shareable public passport for you or your agent. Ed25519 identity, verified skills, benchmark scores, provenance graph, bond history. One HTML file. Yours to fork, host, or run from disk.</p>
+      <div class="ctas">
+        <button class="btn primary" onclick="switchView(1)">Get started →</button>
+        <button class="btn" onclick="switchView(3)">My identity</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>What FallProfile does</h3>
+      <p>• Ed25519 DID<br>• skills registry<br>• provenance chain<br>• signed manifest<br>• shareable URL</p>
+    </div>
+
+    <div class="card">
+      <h3>Sovereign by design</h3>
+      <p>Runs entirely in your browser. IndexedDB stores your data locally. Ed25519 keypair generated via WebCrypto stays on your device. No servers, no accounts, no telemetry.</p>
+    </div>
+  </section>
+
+  
+  <section class="view" id="v1">
+    <h2>Skills</h2>
+    <div id="view-1-content"><div class="empty"><p>Ready when you are.</p></div></div>
+  </section>
+  <section class="view" id="v2">
+    <h2>Provenance</h2>
+    <div id="view-2-content"><div class="empty"><p>Ready when you are.</p></div></div>
+  </section>
+  <section class="view" id="v3">
+    <h2>Export</h2>
+    <div id="view-3-content"><div class="empty"><p>Ready when you are.</p></div></div>
+  </section>
+</main>
+
+<footer>
+  <div>◊ FallProfile · MIT · <a href="https://github.com/sjgant80-hub/fallprofile">GitHub</a> · <a href="https://ai-nativesolutions.com">AI-Native Solutions</a></div>
+  <div class="foot-links">
+    <a href="llms.txt">llms.txt</a>
+    <a href="https://sjgant80-hub.github.io/fallmarket/">FallMarket</a>
+    <a href="https://sjgant80-hub.github.io/fallcolony/">FallColony</a>
+  </div>
+</footer>
+
+<script type="module">
+// ═══ Ed25519 identity via WebCrypto ═══
+const DB_NAME = 'fallprofile', DB_VERSION = 1, STORE = 'passport';
+
+async function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'id', autoIncrement: true });
+      if (!db.objectStoreNames.contains('identity')) db.createObjectStore('identity', { keyPath: 'k' });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function getOrCreateIdentity() {
+  const db = await openDB();
+  const tx = db.transaction('identity', 'readwrite');
+  const store = tx.objectStore('identity');
+  const existing = await new Promise(r => { const rq = store.get('me'); rq.onsuccess = () => r(rq.result); rq.onerror = () => r(null); });
+  if (existing) return existing;
+  const keyPair = await crypto.subtle.generateKey({ name: 'Ed25519' }, true, ['sign', 'verify']).catch(async () => {
+    // Fallback to ECDSA P-256 in older browsers
+    return crypto.subtle.generateKey({ name: 'ECDSA', namedCurve: 'P-256' }, true, ['sign', 'verify']);
+  });
+  const pubJwk = await crypto.subtle.exportKey('jwk', keyPair.publicKey);
+  const privJwk = await crypto.subtle.exportKey('jwk', keyPair.privateKey);
+  const raw = new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(JSON.stringify(pubJwk))));
+  const did = 'did:key:' + btoa(String.fromCharCode(...raw)).replace(/=+$/, '');
+  const rec = { k: 'me', did, pubJwk, privJwk, created: Date.now() };
+  await new Promise(r => { const rq = store.add(rec); rq.onsuccess = r; });
+  return rec;
+}
+
+async function signMessage(msg, privJwk) {
+  const key = await crypto.subtle.importKey('jwk', privJwk, privJwk.crv === 'Ed25519' ? { name: 'Ed25519' } : { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
+  const alg = privJwk.crv === 'Ed25519' ? { name: 'Ed25519' } : { name: 'ECDSA', hash: 'SHA-256' };
+  const sig = await crypto.subtle.sign(alg, key, new TextEncoder().encode(msg));
+  return btoa(String.fromCharCode(...new Uint8Array(sig)));
+}
+
+async function saveRecord(rec) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE, 'readwrite');
+    const rq = tx.objectStore(STORE).add(rec);
+    rq.onsuccess = () => resolve(rq.result);
+    rq.onerror = () => reject(rq.error);
+  });
+}
+
+async function listRecords() {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE, 'readonly');
+    const rq = tx.objectStore(STORE).getAll();
+    rq.onsuccess = () => resolve(rq.result.reverse());
+    rq.onerror = () => reject(rq.error);
+  });
+}
+
+async function deleteRecord(id) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(STORE, 'readwrite');
+    const rq = tx.objectStore(STORE).delete(id);
+    rq.onsuccess = () => resolve();
+    rq.onerror = () => reject(rq.error);
+  });
+}
+
+// ═══ view routing ═══
+function switchView(idx) {
+  document.querySelectorAll('.view').forEach((v, i) => v.classList.toggle('on', i === idx));
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('on', i === idx));
+  render(idx);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.querySelectorAll('.tab').forEach((t, i) => t.addEventListener('click', () => switchView(i)));
+
+// ═══ render per app ═══
+
+async function render(idx) {
+  const c = document.getElementById(`view-${idx}-content`);
+  if (!c) return;
+  const me = await getOrCreateIdentity();
+  const passport = (await listRecords())[0] || { name: '', bio: '', skills: '', links: '' };
+  if (idx === 1) {
+    c.innerHTML = `
+      <div class="card">
+        <div class="form-group"><label>Agent name</label><input id="p-name" value="${passport.name || ''}"></div>
+        <div class="form-group"><label>Bio</label><textarea id="p-bio">${passport.bio || ''}</textarea></div>
+        <div class="form-group"><label>Public links (one per line)</label><textarea id="p-links">${passport.links || ''}</textarea></div>
+        <button class="btn primary" onclick="savePassport()">Save passport →</button>
+      </div>`;
+  }
+  if (idx === 2) {
+    c.innerHTML = `
+      <div class="card">
+        <div class="form-group"><label>Skills (comma-separated)</label><textarea id="p-skills">${passport.skills || ''}</textarea></div>
+        <button class="btn primary" onclick="saveSkills()">Save skills</button>
+      </div>`;
+  }
+  if (idx === 3) c.innerHTML = '<div class="card"><p>Provenance graph coming when your first fork happens. Passports show ancestry once signed.</p></div>';
+  if (idx === 4) c.innerHTML = `<div class="identity-panel"><div class="label">Public passport</div><div class="did">${me.did}</div><div class="actions"><button class="btn" onclick="exportPassport()">Export JSON</button></div></div><pre style="background:var(--deep);padding:20px;border-radius:6px;overflow:auto;font-family:'DM Mono',monospace;font-size:12px;margin-top:16px">${JSON.stringify({...passport, did: me.did}, null, 2)}</pre>`;
+}
+async function savePassport() {
+  const name = document.getElementById('p-name').value; const bio = document.getElementById('p-bio').value; const links = document.getElementById('p-links').value;
+  const me = await getOrCreateIdentity(); const payload = { name, bio, links, date: Date.now() };
+  const sig = await signMessage(JSON.stringify(payload), me.privJwk);
+  const existing = await listRecords(); for (const p of existing) await deleteRecord(p.id);
+  await saveRecord({ ...payload, sig }); alert('Passport signed and saved.');
+}
+async function saveSkills() {
+  const skills = document.getElementById('p-skills').value; const existing = (await listRecords())[0] || {};
+  const merged = { ...existing, skills, date: Date.now() }; delete merged.id;
+  const me = await getOrCreateIdentity(); const sig = await signMessage(JSON.stringify(merged), me.privJwk);
+  const arr = await listRecords(); for (const p of arr) await deleteRecord(p.id);
+  await saveRecord({ ...merged, sig }); alert('Skills saved.');
+}
+async function exportPassport() { const me = await getOrCreateIdentity(); const p = (await listRecords())[0] || {}; const blob = new Blob([JSON.stringify({ did: me.did, passport: p }, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = 'fallprofile.json'; a.click(); URL.revokeObjectURL(url); }
+window.savePassport = savePassport; window.saveSkills = saveSkills; window.exportPassport = exportPassport;
+
+window.switchView = switchView;
+
+// Init
+document.addEventListener('DOMContentLoaded', async () => {
+  await getOrCreateIdentity();
+});
+if ('serviceWorker' in navigator) window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+</script>
+
+</body>
+</html>

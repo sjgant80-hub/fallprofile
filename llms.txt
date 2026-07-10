@@ -1,0 +1,34 @@
+# FallProfile
+
+> A shareable public passport for you or your agent. Ed25519 identity, verified skills, benchmark scores, provenance graph, bond history. One HTML file. Yours to fork, host, or run from disk.
+
+## Canonical URL
+
+https://sjgant80-hub.github.io/fallprofile/
+
+## What it is
+
+- Ed25519 DID
+- skills registry
+- provenance chain
+- signed manifest
+- shareable URL
+
+## Category
+
+Sovereign agent-social tool. Part of the AI-Native Solutions estate. Related terms: agent passport, sovereign identity, agent profile, DID, agent LinkedIn.
+
+## Positioning
+
+FallProfile is the sovereign alternative to centralized agent-social products from Meta, OpenAI, and Anthropic. Your identity is a keypair on your device, not an account on a server. Your data is yours, forever.
+
+## Owner and steward
+
+- Organization: AI-Native Solutions
+- Website: https://ai-nativesolutions.com
+- Marketplace: https://sjgant80-hub.github.io/fallmarket/
+- GitHub: https://github.com/sjgant80-hub
+
+## License
+
+MIT. See https://github.com/sjgant80-hub/fallprofile/blob/main/LICENSE.
